@@ -15,8 +15,8 @@ module.exports = function(grunt) {
           engine: 'im',
           sizes: [{
             width: '100',
-            suffix: '_small',
-            quality: 30
+            suffix: '',
+            quality: 20
 /*
             Change these:
                         */
@@ -29,8 +29,8 @@ module.exports = function(grunt) {
         */
         files: [{
           expand: true,
-          src: ['pizzeria.jpg'],//['*.{gif,jpg,png}'],
-          cwd: 'views/images/',
+          src: ['mobilewebdev.jpg'],//['*.{gif,jpg,png}'],
+          cwd: 'img/',
           dest: 'img-edited/'
         }]
       }
@@ -102,6 +102,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
   //grunt.registerTask('default', ['clean', 'mkdir', 'copy', 'responsive_images']);
-  grunt.registerTask('default', ['concat']);
+  grunt.registerTask('default', ['responsive_images']);
 
 };
