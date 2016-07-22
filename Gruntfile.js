@@ -83,6 +83,15 @@ module.exports = function(grunt) {
         }]
       }
     },
+    concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: ['css/font.min.css', 'css/style.min.js'],
+        dest: 'css/joined.css',
+      },
+    },
   });
 
   grunt.loadNpmTasks('grunt-responsive-images');
@@ -91,7 +100,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mkdir');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   //grunt.registerTask('default', ['clean', 'mkdir', 'copy', 'responsive_images']);
-  grunt.registerTask('default', ['responsive_images','mkdir','cssmin','uglify']);
+  grunt.registerTask('default', ['concat']);
 
 };
