@@ -62,13 +62,36 @@ module.exports = function(grunt) {
         }]
       },
     },
+    cssmin: {
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'css',
+          src: ['*.css', '!*.min.css'],
+          dest: 'release/css',
+          ext: '.min.css'
+        }]
+      }
+    },
+    uglify: {
+      my_target: {
+        files: [{
+            expand: true,
+            cwd: 'js',
+            src: '**/*.js',
+            dest: 'release/js'
+        }]
+      }
+    },
   });
 
   grunt.loadNpmTasks('grunt-responsive-images');
   //grunt.loadNpmTasks('grunt-contrib-clean');
   //grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-mkdir');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   //grunt.registerTask('default', ['clean', 'mkdir', 'copy', 'responsive_images']);
-  grunt.registerTask('default', ['responsive_images','mkdir']);
+  grunt.registerTask('default', ['responsive_images','mkdir','cssmin','uglify']);
 
 };
