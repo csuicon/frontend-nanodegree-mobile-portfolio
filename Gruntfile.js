@@ -29,9 +29,9 @@ module.exports = function(grunt) {
         */
         files: [{
           expand: true,
-          src: ['mobilewebdev.jpg'],//['*.{gif,jpg,png}'],
-          cwd: 'img/',
-          dest: 'img-edited/'
+          src: ['*.{gif,jpg,png}'],
+          cwd: 'views/images/',
+          dest: 'views/images-edited/'
         }]
       }
     },
@@ -97,10 +97,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-responsive-images');
   //grunt.loadNpmTasks('grunt-contrib-clean');
   //grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-mkdir');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-concat');
+  //grunt.loadNpmTasks('grunt-mkdir');
+  //grunt.loadNpmTasks('grunt-contrib-cssmin');
+  //grunt.loadNpmTasks('grunt-contrib-uglify');
+  //grunt.loadNpmTasks('grunt-contrib-concat');
   //grunt.registerTask('default', ['clean', 'mkdir', 'copy', 'responsive_images']);
   grunt.registerTask('default', ['responsive_images']);
 

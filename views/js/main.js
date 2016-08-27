@@ -468,8 +468,14 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
+  requestAnimationFrame(appendpizza);
+  //pizzasDiv.appendChild(pizzaElementGenerator(i));
+}
+
+//**added
+function appendpizza() {
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -501,9 +507,11 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
+  //**moved this value out of the loop
+  var _scrolltop = document.body.scrollTop;
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    var phase = Math.sin((_scrolltop/ 1250) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
@@ -518,12 +526,17 @@ function updatePositions() {
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+window.addEventListener('scroll', function() {
+  requestAnimationFrame(updatePositions);
+});
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
+
+  //**get screen height
+  var sh = window.screen.height;
   for (var i = 0; i < 200; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
@@ -531,8 +544,11 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
-    elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    var _top = (Math.floor(i / cols) * s);
+    if(_top < sh) {
+      elem.style.top = _top + 'px';
+      document.querySelector("#movingPizzas1").appendChild(elem);
+    }
   }
-  updatePositions();
+  requestAnimationFrame(updatePositions);
 });
