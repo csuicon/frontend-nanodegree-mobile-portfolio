@@ -519,9 +519,9 @@ function updatePositions() {
   var items = document.getElementsByClassName('mover');
   for (var i = 0; i < items.length; i++) {
     var phase = aphase[(i % 5)];
-    //items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-    var _itemleft = items[i].basicLeft + 100 * phase + 'px';
-    items[i].style.transform = "translate(" + _itemleft + ")";
+    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    //var _itemleft = items[i].basicLeft + 100 * phase + 'px';
+    //items[i].style.transform = "translate(" + _itemleft + ")";
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
