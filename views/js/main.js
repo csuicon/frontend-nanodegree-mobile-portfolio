@@ -470,8 +470,8 @@ window.performance.mark("mark_start_generating"); // collect timing data
 // This for-loop actually creates and appends all of the pizzas when the page loads
 var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
-  requestAnimationFrame(appendpizza);
-  //pizzasDiv.appendChild(pizzaElementGenerator(i));
+  //requestAnimationFrame(appendpizza);
+  pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
 //**added
@@ -509,10 +509,19 @@ function updatePositions() {
 
   //**moved this value out of the loop
   var _scrolltop = document.body.scrollTop;
-  var items = document.querySelectorAll('.mover');
+  //var items = document.querySelectorAll('.mover');
+  //create an array with the 5 phases
+  var aphase = [];
+  for(var i = 0; i < 5; i++){
+    aphase.push(Math.sin((_scrolltop/ 1250) + i));
+  }
+
+  var items = document.getElementsByClassName('mover');
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((_scrolltop/ 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    var phase = aphase[(i % 5)];
+    //items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    var _itemleft = items[i].basicLeft + 100 * phase + 'px';
+    items[i].style.transform = "translate(" + _itemleft + ")";
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -537,15 +546,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
   //**get screen height
   var sh = window.screen.height;
+  var sw = window.screen.width;
   for (var i = 0; i < 200; i++) {
-    var elem = document.createElement('img');
-    elem.className = 'mover';
-    elem.src = "images/pizza.png";
-    elem.style.height = "100px";
-    elem.style.width = "73.333px";
-    elem.basicLeft = (i % cols) * s;
     var _top = (Math.floor(i / cols) * s);
+    var _left = (i % cols) * s;
     if(_top < sh) {
+    var elem = document.createElement('img');
+      elem.className = 'mover';
+      elem.src = "images/pizza.png";
+      elem.style.height = "100px";
+      elem.style.width = "73.333px";
+      elem.basicLeft = _left;
       elem.style.top = _top + 'px';
       document.querySelector("#movingPizzas1").appendChild(elem);
     }
